@@ -1,6 +1,6 @@
 #ifndef WEKTOR_HH
 #define WEKTOR_HH
-
+#define ROZMIARWEKTORA 3
 #include <iostream>
 
 
@@ -19,15 +19,23 @@
  *  Tutaj trzeba opisac szablon. Jakie pojecie on modeluje
  *  i jakie ma glowne cechy.
  */
-template <int Wyniar>
+template <typename typ, int WymiarWektora>
 class Wektor {
   /*
    *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
    */
+  typ TablicaWektorow[WymiarWektora];
   public:
   /*
    *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+   */ 
+    typ operator [] (int Ind) const { return TablicaWektorow[Ind];}
+    typ& operator [] (int Ind) {return TablicaWektorow[Ind];}
+    Wektor<typ,WymiarWektora>  operator + (Wektor<typ,WymiarWektora> wektor1);
+    Wektor<typ,WymiarWektora>  operator - (Wektor<typ,WymiarWektora> wektor1);
+    Wektor<typ,WymiarWektora>  operator * (Wektor<typ,WymiarWektora> wektor1);
+    Wektor<typ,WymiarWektora>  operator * (typ liczba);
+    Wektor<typ,WymiarWektora>  operator / (typ liczba);
 };
 
 
@@ -40,13 +48,15 @@ class Wektor {
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-template <int Wymiar>
+template <typename typ, int WymiarWektora>
 inline
-std::istream& operator >> (std::istream &Strm, Wektor<Wymiar> &Wek)
+std::istream& operator >> (std::istream &Strm, Wektor<typ,WymiarWektora> &Wek)
 {
-  /*!
-   * Zawartość powinna być przeróbką przeciążenia dla klasy Wektor2D
-   */
+  for(int i=0; i<ROZMIARWEKTORA; i++)
+  {
+    Strm >> Wek[i]; 
+  }
+
   return Strm;
 }
 
@@ -59,14 +69,104 @@ std::istream& operator >> (std::istream &Strm, Wektor<Wymiar> &Wek)
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-template <int Wymiar>
+template <typename typ, int WymiarWektora>
 inline
-std::ostream& operator << (std::ostream &Strm, const Wektor<Wymiar> &Wek)
+std::ostream& operator << (std::ostream &Strm, const Wektor<typ,WymiarWektora> &Wek)
 {
-  /*!
-   * Zawartość powinna być przeróbką przeciążenia dla klasy Wektor2D
-   */
+  for(int i=0; i<ROZMIARWEKTORA; i++)
+  {
+    Strm << Wek[i] << " ";
+  }
+
   return Strm;  
 }
+
+
+
+template<typename typ, int WymiarWektora>
+inline
+Wektor<typ,WymiarWektora>  Wektor<typ,WymiarWektora>::operator + (Wektor<typ,WymiarWektora>  wektor1)
+{
+  
+
+  for(int i=0;i<ROZMIARWEKTORA;i++)
+  {
+    wektor1[i] = wektor1[i] + TablicaWektorow[i];
+  }
+
+
+  return wektor1;
+}
+
+
+template<typename typ, int WymiarWektora>
+inline
+Wektor<typ,WymiarWektora>  Wektor<typ,WymiarWektora>::operator - (Wektor<typ,WymiarWektora>  wektor1)
+{
+  
+
+  for(int i=0;i<ROZMIARWEKTORA;i++)
+  {
+    wektor1[i] = wektor1[i] - TablicaWektorow[i];
+  }
+
+
+  return wektor1;
+}
+
+
+
+
+//ILOCZYN SKALARNY DWOCH WEKTORÓW -> ZWRACA WEKTOR 
+template<typename typ, int WymiarWektora>
+inline
+Wektor<typ,WymiarWektora>  Wektor<typ,WymiarWektora>::operator * (Wektor<typ,WymiarWektora>  wektor1)
+{
+  Wektor  Wynik;
+  double tmp;
+  for(int i=0;i<ROZMIARWEKTORA;i++)
+  {
+    tmp=TablicaWektorow[i]*wektor1[i];
+    Wynik[i]=tmp;  
+  }
+
+
+  return Wynik;
+}
+
+//ILOCZYN   WEKTORA I LICZBY  -> ZWRACA WEKTOR 
+template<typename typ, int WymiarWektora>
+inline
+Wektor<typ,WymiarWektora>  Wektor<typ,WymiarWektora>::operator * (typ liczba)
+{
+  Wektor  Wynik;
+  double tmp;
+  for(int i=0;i<ROZMIARWEKTORA;i++)
+  {
+    tmp=TablicaWektorow[i]*liczba;
+    Wynik[i]=tmp;  
+  }
+
+
+  return Wynik;
+}
+
+//ILORAZ   WEKTORA I LICZBY  -> ZWRACA WEKTOR 
+template<typename typ, int WymiarWektora>
+inline
+Wektor<typ,WymiarWektora>  Wektor<typ,WymiarWektora>::operator / (typ liczba)
+{
+  Wektor  Wynik;
+  double tmp;
+  for(int i=0;i<ROZMIARWEKTORA;i++)
+  {
+    tmp=TablicaWektorow[i]/liczba;
+    Wynik[i]=tmp;  
+  }
+
+
+  return Wynik;
+}
+
 
 #endif

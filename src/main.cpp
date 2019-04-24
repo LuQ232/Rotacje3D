@@ -172,7 +172,7 @@ int main()
   Lacze.UstawZakresX(-155,155);
   Lacze.UstawZakresZ(-155,155);
 
-  
+  /*
   PrzykladZapisuWspolrzednychDoStrumienia(cout,0);
   if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",0)) return 1;
   Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
@@ -187,4 +187,32 @@ int main()
   Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
   cout << "Naciśnij ENTER, aby kontynuowac" << endl;
   cin.ignore(10000,'\n');
+*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Wektor3D Wektor1;
+//Wektor<double,2> Wektor1;
+Wektor1[0]=2;
+Wektor1[1]=4;
+Wektor1[2]=6;
+cout<<Wektor1<<endl;
+Wektor3D Wektor2;
+//Wektor<double,2> Wektor2;
+Wektor2[0]=1;
+Wektor2[1]=2;
+Wektor2[2]=3;
+cout<<Wektor2<<endl;
+double a=2.7;
+
+cout<<endl<<"wektor po mnozeniu:"<<endl;
+Wektor2=Wektor2*a;
+
+
+cout<<Wektor2;
+
+
+
+
+
+
+
 }
