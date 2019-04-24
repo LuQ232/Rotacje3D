@@ -1,8 +1,10 @@
 #ifndef MACIERZ_HH
 #define MACIERZ_HH
-
+#define LICZBAMACIERZY 3
 
 #include <iostream>
+#include "Wektor3D.hh"
+#include "Wektor.hh"
 
 
 /*!
@@ -22,15 +24,20 @@
  *  Tutaj trzeba opisac szablon. Jakie pojecie on modeluje
  *  i jakie ma glowne cechy.
  */
-template <int Wymiar>
+template <typename typ,int WymiarMacierzy>
 class Macierz{
   /*
    *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
    */
+  Wektor<typ,WymiarMacierzy> TablicaMacierzy[WymiarMacierzy];
   public:
   /*
    *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+   */
+   Wektor<typ,WymiarMacierzy> operator () (unsigned int Indeks) const {return TablicaMacierzy[Indeks];}
+   Wektor<typ,WymiarMacierzy>& operator () (unsigned int Indeks)  {return TablicaMacierzy[Indeks];}
+   Wektor<typ,WymiarMacierzy> operator * (Wektor<typ,WymiarMacierzy> wektor);//Mnożenie macierzy
+   //Macierz<typ,WymiarMacierzy> operator * (Macierz<typ,WymiarMacierzy> MacierzMnozenia);
 };
 
 
@@ -45,14 +52,40 @@ class Macierz{
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-template <int Wymiar>
+template <typename typ,int WymiarMacierzy>
 inline
-std::ostream& operator << (std::ostream &Strm, const Macierz<Wymiar> &Wek)
+std::ostream& operator << (std::ostream &Strm, const Macierz<typ,WymiarMacierzy> &Mac)
 {
-  /*!
-   * Zawartość powinna być przeróbką przeciążenia dla klasy Macierz2x2
-   */
+  
+  for(int i=0;i<LICZBAMACIERZY;i++)
+  {
+    Strm<<Mac(i)<<" "<<std::endl;
+  }
+
   return Strm;  
+}
+
+
+template <typename typ, int WymiarMacierzy>
+inline
+Wektor<typ,WymiarMacierzy> Macierz<typ,WymiarMacierzy>::operator * (Wektor<typ,WymiarMacierzy> wektor)
+{
+
+Wektor<typ,WymiarMacierzy> Wynik;
+Wynik[0]=0;
+Wynik[1]=0;
+ 
+
+  for (int i=0; i<LICZBAMACIERZY;i++)
+  {
+      for (int j=0; j<ROZMIARWEKTORA;j++)
+    {
+        Wynik[i]+=TablicaMacierzy[i][j]*wektor[j];
+
+    }       
+  }
+
+return Wynik;
 }
 
 

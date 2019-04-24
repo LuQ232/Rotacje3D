@@ -10,7 +10,8 @@
  *  Tutaj trzeba opisac instancję szablonu. Jakie pojecie ona modeluje 
  *  i jakie ma glowne cechy.
  */
-using Wektor3D = Wektor<double, 3>;
+//using Wektor3D = Wektor<double, 3>;
 
+typedef Wektor<double, 3> Wektor3D;
 
 #endif

@@ -12,7 +12,7 @@
  *  Tutaj trzeba opisac instancję szablonu. Jakie pojecie ona modeluje 
  *  i jakie ma glowne cechy.
  */
-typedef Macierz<3>  Macierz3x3;
+typedef Macierz<double,3>  Macierz3x3;
 
 
 #endif

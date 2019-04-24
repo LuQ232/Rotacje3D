@@ -191,23 +191,44 @@ int main()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Wektor3D Wektor1;
 //Wektor<double,2> Wektor1;
-Wektor1[0]=2;
-Wektor1[1]=4;
-Wektor1[2]=6;
-cout<<Wektor1<<endl;
+Wektor1[0]=1;
+Wektor1[1]=2;
+Wektor1[2]=5;
+
+
 Wektor3D Wektor2;
-//Wektor<double,2> Wektor2;
-Wektor2[0]=1;
-Wektor2[1]=2;
-Wektor2[2]=3;
-cout<<Wektor2<<endl;
-double a=2.7;
+//Wektor<double,2> Wektor1;
+Wektor2[0]=2;
+Wektor2[1]=3;
+Wektor2[2]=4;
 
-cout<<endl<<"wektor po mnozeniu:"<<endl;
-Wektor2=Wektor2*a;
+Wektor3D Wektor4;
+//Wektor<double,2> Wektor1;
+Wektor4[0]=5;
+Wektor4[1]=6;
+Wektor4[2]=7;
+
+Wektor3D Wektor3;
+Wektor3[0]=1;
+Wektor3[1]=5;
+Wektor3[2]=10;
+
+cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl;
+
+Macierz3x3 Macierz1;
+Macierz1(0)=Wektor1;
+Macierz1(1)=Wektor2;
+Macierz1(2)=Wektor4;
+Wektor3D WektorNowy;
+WektorNowy=Macierz1*Wektor3;
+ 
+cout<<Macierz1<<endl<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+
+cout<<"MACIERZ RAZY WEKTOR"<<endl<<WektorNowy;
 
 
-cout<<Wektor2;
+
+
 
 
 
