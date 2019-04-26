@@ -2,6 +2,8 @@
 #define WEKTOR_HH
 #define ROZMIARWEKTORA 3
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 
 
 /*!
@@ -75,7 +77,7 @@ std::ostream& operator << (std::ostream &Strm, const Wektor<typ,WymiarWektora> &
 {
   for(int i=0; i<ROZMIARWEKTORA; i++)
   {
-    Strm << Wek[i] << " ";
+    Strm <<std::setw(16)<<std::fixed <<std::setprecision(10)<<Wek[i] << " "; 
   }
 
   return Strm;  
