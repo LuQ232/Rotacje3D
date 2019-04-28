@@ -39,7 +39,7 @@ using namespace std;
  * \retval false - w przypadku przeciwnym.
  */
 void PrzykladZapisuWspolrzednychDoStrumienia( ostream&     StrmWy, 
-                                              double       Przesuniecie
+                                              Prostopadloscian Pr
                                             )
 {
    //---------------------------------------------------------------
@@ -47,69 +47,11 @@ void PrzykladZapisuWspolrzednychDoStrumienia( ostream&     StrmWy,
    // W programie nalezy uzywać pojęcia wektora, a nie oddzielnych 
    // zmiennych do reprezentowania wspolrzednych!
    //
-  double  x1, y1, z1;
-
-  x1 = y1 = z1 = Przesuniecie;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
-
-  StrmWy << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1
-         << setw(16) << fixed << setprecision(10) << y1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << y1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
-
-  StrmWy << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1
-         << setw(16) << fixed << setprecision(10) << y1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << z1+DL_BOKU 
-         << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << y1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << z1+DL_BOKU 
-         << endl;
-
-  StrmWy << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1+DL_BOKU 
-         << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1+DL_BOKU 
-         << endl;
-
-  StrmWy << endl;
- 
-  StrmWy << setw(16) << fixed << setprecision(10) << x1
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
-
-  StrmWy << setw(16) << fixed << setprecision(10) << x1+DL_BOKU
-         << setw(16) << fixed << setprecision(10) << y1
-         << setw(16) << fixed << setprecision(10) << z1 
-         << endl;
+StrmWy<<Pr;
+StrmWy<<Pr(0)<<endl;
+StrmWy<<Pr(1)<<endl;
                              // Jeszcze raz zapisujemy pierwsze dwa wierzcholki,
-                             // aby gnuplot narysowal zamkniętą powierzchnie.
+                             // aby gnuplot narysowal) zamkniętą powierzchnie.
 }
 
 
@@ -127,7 +69,7 @@ void PrzykladZapisuWspolrzednychDoStrumienia( ostream&     StrmWy,
  * \retval false - w przypadku przeciwnym.
  */
 bool PrzykladZapisuWspolrzednychDoPliku( const char  *sNazwaPliku,
-                                         double       Przesuniecie
+                                         Prostopadloscian Pr
                                        )
 {
   ofstream  StrmPlikowy;
@@ -139,7 +81,7 @@ bool PrzykladZapisuWspolrzednychDoPliku( const char  *sNazwaPliku,
     return false;
   }
 
-  PrzykladZapisuWspolrzednychDoStrumienia(StrmPlikowy,Przesuniecie);
+  PrzykladZapisuWspolrzednychDoStrumienia(StrmPlikowy,Pr);
 
   StrmPlikowy.close();
   return !StrmPlikowy.fail();
@@ -149,7 +91,19 @@ bool PrzykladZapisuWspolrzednychDoPliku( const char  *sNazwaPliku,
 
 int main()
 {
-  
+
+Wektor3D Wektor1;Wektor1[0]=50;Wektor1[1]=50;Wektor1[2]=50;
+Wektor3D Wektor2;Wektor2[0]=100;Wektor2[1]=50;Wektor2[2]=50;
+Wektor3D Wektor3;Wektor3[0]=50;Wektor3[1]=100;Wektor3[2]=50;
+Wektor3D Wektor4;Wektor4[0]=100;Wektor4[1]=100;Wektor4[2]=50;
+Wektor3D Wektor5;Wektor5[0]=50;Wektor5[1]=100;Wektor5[2]=100;
+Wektor3D Wektor6;Wektor6[0]=100;Wektor6[1]=100;Wektor6[2]=100;
+Wektor3D Wektor7;Wektor7[0]=50;Wektor7[1]=50;Wektor7[2]=100;
+Wektor3D Wektor8;Wektor8[0]=100;Wektor8[1]=50;Wektor8[2]=100;
+
+
+ Prostopadloscian             Pr(Wektor1,Wektor2,Wektor3,Wektor4,Wektor5,Wektor6,Wektor7,Wektor8);   // To tylko przykladowe definicje zmiennej
+
   PzG::LaczeDoGNUPlota  Lacze;  // Ta zmienna jest potrzebna do wizualizacji
                                 // rysunku prostokata
 
@@ -168,65 +122,89 @@ int main()
   Lacze.ZmienTrybRys(PzG::TR_3D);
 
    // Ustawienie zakresow poszczegolnych osi
-  Lacze.UstawZakresY(-155,155);
-  Lacze.UstawZakresX(-155,155);
-  Lacze.UstawZakresZ(-155,155);
+  Lacze.UstawZakresY(-200,200);
+  Lacze.UstawZakresX(-200,200);
+  Lacze.UstawZakresZ(-200,200);
+
+  
+  PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
+  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
+  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
+  cin.ignore(10000,'\n');
 
   /*
-  PrzykladZapisuWspolrzednychDoStrumienia(cout,0);
-  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",0)) return 1;
-  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
-  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
-  cin.ignore(10000,'\n');
+Wektor3D Wektor1;Wektor1[0]=1;Wektor1[1]=1;Wektor1[2]=1;
+Wektor3D Wektor2;Wektor2[0]=1;Wektor2[1]=1;Wektor2[2]=1;
+Wektor3D Wektor3;Wektor3[0]=1;Wektor3[1]=1;Wektor3[2]=1;
+Wektor3D Wektor4;Wektor4[0]=1;Wektor4[1]=1;Wektor4[2]=1;
+Wektor3D Wektor5;Wektor5[0]=1;Wektor5[1]=1;Wektor5[2]=1;
+Wektor3D Wektor6;Wektor6[0]=1;Wektor6[1]=1;Wektor6[2]=1;
+Wektor3D Wektor7;Wektor7[0]=1;Wektor7[1]=1;Wektor7[2]=1;
+Wektor3D Wektor8;Wektor8[0]=1;Wektor8[1]=1;Wektor8[2]=1;
 
-   //----------------------------------------------------------
-   // Ponownie wypisuje wspolrzedne i rysuje prostokąt w innym miejscu.
-   //
-  PrzykladZapisuWspolrzednychDoStrumienia(cout,50);
-  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",50)) return 1;
-  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
-  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
-  cin.ignore(10000,'\n');
+
+ Prostopadloscian             Pr(Wektor1,Wektor2,Wektor3,Wektor4,Wektor5,Wektor6,Wektor7,Wektor8);
+      
 */
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Wektor3D Wektor1;Wektor1[0]=1;Wektor1[1]=3;Wektor1[2]=2;
-Wektor3D Wektor2;Wektor2[0]=2;Wektor2[1]=2;Wektor2[2]=3;
-Wektor3D Wektor3;Wektor3[0]=3;Wektor3[1]=1;Wektor3[2]=1;
-Macierz3x3 Macierz1;
-Macierz1(0)=Wektor1;Macierz1(1)=Wektor2;Macierz1(2)=Wektor3;
-
-
-cout<<Macierz1<<endl;
-
-Wektor3D Wektor4;Wektor4[0]=2;Wektor4[1]=2;Wektor4[2]=2;
-Wektor3D Wektor5;Wektor5[0]=3;Wektor5[1]=5;Wektor5[2]=3;
-Wektor3D Wektor6;Wektor6[0]=4;Wektor6[1]=6;Wektor6[2]=4;
-Wektor3D Wektor7;Wektor7[0]=4;Wektor7[1]=6;Wektor7[2]=4;
-Wektor3D Wektor8;Wektor8[0]=4;Wektor8[1]=6;Wektor8[2]=4;
+/*
 Macierz3x3 Macierz2;
-Macierz2(0)=Wektor4;Macierz2(1)=Wektor5;Macierz2(2)=Wektor6;
- cout<<Macierz2<<endl;
+Macierz2(0)[0]=1;
+Macierz2(0)[1]=4;
+Macierz2(0)[2]=0;
+Macierz2(1)[0]=1;
+Macierz2(1)[1]=4;
+Macierz2(1)[2]=4;
+Macierz2(2)[0]=2;
+Macierz2(2)[1]=5;
+Macierz2(2)[2]=0;
+cout<<Macierz2<<endl<<endl;
+
+Macierz3x3 Macierz;
+Macierz(0)[0]=1;
+Macierz(0)[1]=2;
+Macierz(0)[2]=5;
+Macierz(1)[0]=5;
+Macierz(1)[1]=1;
+Macierz(1)[2]=3;
+Macierz(2)[0]=7;
+Macierz(2)[1]=2;
+Macierz(2)[2]=1;
+cout<<Macierz<<endl<<endl;
 
 
 
- Prostopadloscian             Pr(Wektor1,Wektor2,Wektor3,Wektor4,Wektor5,Wektor6,Wektor7,Wektor8);   // To tylko przykladowe definicje zmiennej
+Macierz3x3 PoMnozeniu;
 
- Macierz3x3 MacierzMnozenia;
-MacierzMnozenia=Macierz1*Macierz2;
+PoMnozeniu=Macierz2*Macierz;
 
- cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl<<MacierzMnozenia;
-
- cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl<<Pr;
+cout<<endl<<endl<<PoMnozeniu;
+*/
 
 
 
 
 
 
+    cout<<"ROTUJE"<<endl;
+    int IleRazy;
+    Macierz3x3 MacierzRotacji;
+      MacierzRotacji = Pr.StworzMacierzRotacji();
+      cout << "  Ile razy operacja obrotu ma byc powtorzona?  ";
+      cin >> IleRazy;
+      Pr.Rotacja(IleRazy, MacierzRotacji);
 
+PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
+  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
+  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
+  cin.ignore(10000,'\n');
 
-
-
+PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
+  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
+  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
+  cin.ignore(10000,'\n');
 
 
 

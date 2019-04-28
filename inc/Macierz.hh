@@ -36,9 +36,10 @@ class Macierz{
    */
    Wektor<typ,WymiarMacierzy> operator () (unsigned int Indeks) const {return TablicaMacierzy[Indeks];}
    Wektor<typ,WymiarMacierzy>& operator () (unsigned int Indeks)  {return TablicaMacierzy[Indeks];}
-   Wektor<typ,WymiarMacierzy> operator * (Wektor<typ,WymiarMacierzy> wektor);//Mnożenie macierzy
-   Macierz<typ,WymiarMacierzy> operator * (Macierz<typ,WymiarMacierzy> MacierzMnozenia);
+   Wektor<typ,WymiarMacierzy> operator * (Wektor<typ,WymiarMacierzy> wektor);//Mnożenie macierzy razy wektor
+   Macierz<typ,WymiarMacierzy> operator * (Macierz<typ,WymiarMacierzy> MacierzMnozenia);//macierz razy macierz
    Macierz<typ,WymiarMacierzy> Transponuj ();
+   Macierz<typ,WymiarMacierzy> StworzMacierzJednostkowa ();
 };
 
 
@@ -73,12 +74,11 @@ Wektor<typ,WymiarMacierzy> Macierz<typ,WymiarMacierzy>::operator * (Wektor<typ,W
 {
 
 Wektor<typ,WymiarMacierzy> Wynik;
-Wynik[0]=0;
-Wynik[1]=0;
- 
+
 
   for (int i=0; i<LICZBAMACIERZY;i++)
   {
+    Wynik[i]=0;
       for (int j=0; j<ROZMIARWEKTORA;j++)
     {
         Wynik[i]+=TablicaMacierzy[i][j]*wektor[j];
@@ -88,63 +88,41 @@ Wynik[1]=0;
 
 return Wynik;
 }
-/*
-template <typename typ, int WymiarMacierzy>
-inline
-Macierz<typ,WymiarMacierzy> operator * (Macierz<typ,WymiarMacierzy> MacierzMnozenia1,Macierz<typ,WymiarMacierzy> MacierzMnozenia2)
-{
-  Macierz<typ,WymiarMacierzy> Wynik;
 
- 
 
-  for (int i=0; i<LICZBAMACIERZY;i++)
-  {
-      for (int j=0; j<ROZMIARWEKTORA;j++)
-    {
-      Wynik(i)=MacierzMnozenia1(i)*MacierzMnozenia2(j);
 
-    }       
-  }
-  return Wynik;
-}
-*/
-
+///TU GDZIES JEST JEBANY BLAD//////////////
 
 template <typename typ, int WymiarMacierzy>
 inline
 Macierz<typ,WymiarMacierzy> Macierz<typ,WymiarMacierzy>::operator * (Macierz<typ,WymiarMacierzy> MacierzMnozenia)
 {
   Macierz<typ,WymiarMacierzy> wynik;
+  //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl<<"MACIERZ PRZED TRANSPONOWANIEM"<<std::endl<<MacierzMnozenia<<std::endl<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl;
   MacierzMnozenia=MacierzMnozenia.Transponuj();
+  //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl<<"MACIERZ MNOZENIA PO TRANSPONOWANIU"<<std::endl<<MacierzMnozenia<<std::endl<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl;
   typ suma;
     for (int i = 0; i < LICZBAMACIERZY; i++) {
       for (int j = 0; j < LICZBAMACIERZY; j++) {
         suma = 0;
         for (int k = 0; k < ROZMIARWEKTORA; k++) {
-          suma += TablicaMacierzy[i][k] * MacierzMnozenia(k)[j];
+          //std::cout<<TablicaMacierzy[i][k]<<"*"<<MacierzMnozenia(j)[k]<<std::endl;
+          suma += TablicaMacierzy[i][k] * MacierzMnozenia(j)[k];
         }
+        //std::cout<<"tab["<<i<<"]["<<j<<"] WYNOSI: "<<suma<<std::endl;
         wynik(i)[j]= suma;
       }
     }
     return wynik;
 }
-/*
 
- Macierz<Wymiar> operator*(Macierz<Wymiar> const &Arg2) {
-    Macierz<Wymiar> temp;
-    double suma;
-    for (int i = 0; i < Wymiar; i++) {
-      for (int j = 0; j < Wymiar; j++) {
-        suma = 0;
-        for (int k = 0; k < Wymiar; k++) {
-          suma += (*this)(i, k) * Arg2(k, j);
-        }
-        temp(i, j) = suma;
-      }
-    }
-    return temp;
-  }
-*/
+
+
+
+
+
+
+
 template <typename typ, int WymiarMacierzy>
 inline
 Macierz<typ,WymiarMacierzy> Macierz<typ,WymiarMacierzy>::Transponuj()
@@ -157,6 +135,28 @@ for(int i=0; i<LICZBAMACIERZY;i++)
         Wynik(j)[i]=TablicaMacierzy[i][j];
       }
   }
+return Wynik;
+}
+
+
+template <typename typ, int WymiarMacierzy>
+inline
+Macierz<typ,WymiarMacierzy> Macierz<typ,WymiarMacierzy>::StworzMacierzJednostkowa()
+{
+
+  Macierz<typ,WymiarMacierzy> Wynik;
+  for(int i=0;i<LICZBAMACIERZY;i++)
+  {
+    for(int j=0;j<LICZBAMACIERZY;j++)
+    {
+      if(i==j)
+        Wynik(i)[j]=1;
+      else 
+        Wynik(i)[j]=0;
+    }
+
+  }
+
 return Wynik;
 }
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Wektor.hh"
 #include "Macierz.hh"
+#include "Macierz3x3.hh"
 
 /*
  *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
@@ -21,6 +22,13 @@ class Prostopadloscian {
    Wektor3D operator () (int Ind) const { return TablicaWierzcholkow[Ind];}
    Wektor3D& operator () (int Ind) {return TablicaWierzcholkow[Ind];}  
    Prostopadloscian(Wektor3D W1,Wektor3D W2,Wektor3D W3,Wektor3D W4,Wektor3D W5,Wektor3D W6,Wektor3D W7,Wektor3D W8);
+   Prostopadloscian Przesuniecie(Wektor3D koordy);
+   Macierz3x3 StworzMacierzRotacji();
+   void Rotacja(int IleRazy, Macierz3x3 MacierzRotacji);
+   Macierz3x3 MacierzRotacjiOX(double kat);
+   Macierz3x3 MacierzRotacjiOY(double kat);
+   Macierz3x3 MacierzRotacjiOZ(double kat);
+
 };
 
 
