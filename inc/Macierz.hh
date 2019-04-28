@@ -91,7 +91,7 @@ return Wynik;
 
 
 
-///TU GDZIES JEST JEBANY BLAD//////////////
+
 
 template <typename typ, int WymiarMacierzy>
 inline

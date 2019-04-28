@@ -120,72 +120,18 @@ Wektor3D Wektor8;Wektor8[0]=100;Wektor8[1]=50;Wektor8[2]=100;
    //  jako wspolrzedne punktow podajemy x,y,z.
    //
   Lacze.ZmienTrybRys(PzG::TR_3D);
-
    // Ustawienie zakresow poszczegolnych osi
   Lacze.UstawZakresY(-200,200);
   Lacze.UstawZakresX(-200,200);
   Lacze.UstawZakresZ(-200,200);
 
-  
+
   PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
   if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
-  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
-  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
-  cin.ignore(10000,'\n');
+      Lacze.Rysuj();
+  
 
-  /*
-Wektor3D Wektor1;Wektor1[0]=1;Wektor1[1]=1;Wektor1[2]=1;
-Wektor3D Wektor2;Wektor2[0]=1;Wektor2[1]=1;Wektor2[2]=1;
-Wektor3D Wektor3;Wektor3[0]=1;Wektor3[1]=1;Wektor3[2]=1;
-Wektor3D Wektor4;Wektor4[0]=1;Wektor4[1]=1;Wektor4[2]=1;
-Wektor3D Wektor5;Wektor5[0]=1;Wektor5[1]=1;Wektor5[2]=1;
-Wektor3D Wektor6;Wektor6[0]=1;Wektor6[1]=1;Wektor6[2]=1;
-Wektor3D Wektor7;Wektor7[0]=1;Wektor7[1]=1;Wektor7[2]=1;
-Wektor3D Wektor8;Wektor8[0]=1;Wektor8[1]=1;Wektor8[2]=1;
-
-
- Prostopadloscian             Pr(Wektor1,Wektor2,Wektor3,Wektor4,Wektor5,Wektor6,Wektor7,Wektor8);
-      
-*/
 /*
-Macierz3x3 Macierz2;
-Macierz2(0)[0]=1;
-Macierz2(0)[1]=4;
-Macierz2(0)[2]=0;
-Macierz2(1)[0]=1;
-Macierz2(1)[1]=4;
-Macierz2(1)[2]=4;
-Macierz2(2)[0]=2;
-Macierz2(2)[1]=5;
-Macierz2(2)[2]=0;
-cout<<Macierz2<<endl<<endl;
-
-Macierz3x3 Macierz;
-Macierz(0)[0]=1;
-Macierz(0)[1]=2;
-Macierz(0)[2]=5;
-Macierz(1)[0]=5;
-Macierz(1)[1]=1;
-Macierz(1)[2]=3;
-Macierz(2)[0]=7;
-Macierz(2)[1]=2;
-Macierz(2)[2]=1;
-cout<<Macierz<<endl<<endl;
-
-
-
-Macierz3x3 PoMnozeniu;
-
-PoMnozeniu=Macierz2*Macierz;
-
-cout<<endl<<endl<<PoMnozeniu;
-*/
-
-
-
-
-
-
     cout<<"ROTUJE"<<endl;
     int IleRazy;
     Macierz3x3 MacierzRotacji;
@@ -193,18 +139,101 @@ cout<<endl<<endl<<PoMnozeniu;
       cout << "  Ile razy operacja obrotu ma byc powtorzona?  ";
       cin >> IleRazy;
       Pr.Rotacja(IleRazy, MacierzRotacji);
+*/
+char wybor;
+int IleRazy;
+Macierz3x3 MacierzDoPowtorzeniaRotacji;
+int IleRazyDoPowtorzeniaRotacji;
+int flaga=0;
+for(;;)
+{
+  cout<<"Twoj wybor? (m - menu) > ";
+  cin>>wybor;
+  switch(wybor)
+  {
+    case 'o':
+      Macierz3x3 MacierzRotacji;
+      MacierzRotacji = Pr.StworzMacierzRotacji();
+      cout << "  Ile razy operacja obrotu ma byc powtorzona?  ";
+      cin >> IleRazy;
+      MacierzDoPowtorzeniaRotacji=MacierzRotacji;
+      IleRazyDoPowtorzeniaRotacji=IleRazy;
+      Pr.Rotacja(IleRazy, MacierzRotacji);
+      if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+      Lacze.Rysuj();
+      flaga=1;
+    break;
+      
 
-PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
-  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
-  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
-  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
-  cin.ignore(10000,'\n');
+    case 't':
+      if(flaga==1)
+      {
+        Pr.Rotacja(IleRazyDoPowtorzeniaRotacji,MacierzDoPowtorzeniaRotacji);
+        if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+        Lacze.Rysuj();
+      }else 
+      {
+       cout<<"Nie wykonano wczesniej rotacji!!!!!!!"<<endl; 
+      }
+    break;
 
-PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
-  if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
-  Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
-  cout << "Naciśnij ENTER, aby kontynuowac" << endl;
-  cin.ignore(10000,'\n');
+    case 'r':
+      cout<<endl<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl<<"Macierz Rotacji:"<<endl<<MacierzRotacji<<endl<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl;
+    break;
+
+    case 'p':
+      Wektor3D przesuniecie;
+      cout<<"Podaj wektor przesuniecia Prostopadloscianu( x y z ) :";
+      cin>>przesuniecie;
+      Pr=Pr.Przesuniecie(przesuniecie);
+
+    if (!PrzykladZapisuWspolrzednychDoPliku("prostopadloscian.dat",Pr)) return 1;
+      Lacze.Rysuj();
+    break;
+
+    case 'w':
+      PrzykladZapisuWspolrzednychDoStrumienia(cout,Pr);
+      
+    break;
+
+    case 's':
+      //kod
+    break;
+
+    case 'm':
+      cout<<"o - obrot bryly o zadana sekwencje katow"<<endl;
+      cout<<"t - powtorzenie poprzedniego obrotu"<<endl;
+      cout<<"r - wyswietlenie macierzy rotacji"<<endl;
+      cout<<"p - przesuniecie prostokata o zadany wektor"<<endl;
+      cout<<"w - wyswietlenie wspolrzednych wierzcholkow i zapis do pliku"<<endl;
+      cout<<"s - sprawdzenie dlugosci przeciwleglych bokow"<<endl;
+      cout<<"m - wyswietl menu"<<endl;
+      cout<<"k - koniec dzialania programu"<<endl;
+    break;
+
+    case 'k':
+      cout<<"Zakonczono Program"<<endl;
+      return 1;
+    break;  
+    
+    default:
+      cout << endl;
+      cout << "  Wybierz poprawna opcje" << endl << endl;
+      break;
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 
